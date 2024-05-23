@@ -26,6 +26,8 @@ public class Main {
             exibirView(scanner, op);
 
         } while (op != 0);
+        
+        logger.info("Hello world!");
     }
 
     private static void exibirView(Scanner scanner, int op) {
