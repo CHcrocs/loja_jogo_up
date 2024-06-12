@@ -32,18 +32,10 @@ public class Main {
 
     private static void exibirView(Scanner scanner, int op) {
         switch (op) {
-            case 0:
-                System.out.println("Até mais");
-                break;
-            case 1:
-                TesteView.iniciar(scanner);
-                break;
-            case 99:
-                System.out.println("Informe Um valor Valido");
-            break;
-            default:
-                System.out.println("Opção Invalida!");
-                break;
+            case 0 -> System.out.println("Até mais");
+            case 1 -> TesteView.iniciar(scanner);
+            case 99 -> System.out.println("Informe Um valor Valido");
+            default -> System.out.println("Opção Invalida!");
         }
     }
     
