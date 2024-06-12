@@ -9,6 +9,17 @@ public class Tarefa {
     private String prioridade;
     private Usuario usuario;
 
+    public Tarefa() {
+    }
+
+    public Tarefa(UUID uuid, String titulo, String descricao, String prioridade, Usuario usuario) {
+        this.uuid = uuid;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.prioridade = prioridade;
+        this.usuario = usuario;
+    }
+
     public UUID getUuid() {
         return uuid;
     }
