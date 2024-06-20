@@ -9,7 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import br.edu.up.projeto.models.JogoMultiplayer;
 import br.edu.up.projeto.models.JogoSingleplayer;
-import br.edu.up.projeto.models.jogoBuscar;
+import br.edu.up.projeto.models.JogoBuscar;
+import br.edu.up.projeto.Principal;
 
 public class MenuJogos {
     private static final Logger logger = LogManager.getLogger(MenuJogos.class);
@@ -51,7 +52,7 @@ public class MenuJogos {
                     JogoMultiplayer.listarJogos(jogosMultiplayers);
                     break;
                 case 2:
-                    jogoBuscar.BuscarJogo(jogosMultiplayers, jogosSingleplayers);
+                    JogoBuscar.BuscarJogo(jogosMultiplayers, jogosSingleplayers);
                     break;
                 case 3:
                     // Adicione lógica para comprar jogo
@@ -67,4 +68,5 @@ public class MenuJogos {
         logger.info("Menu de jogos finalizado");
         Principal.main(args);
     }
+
 }

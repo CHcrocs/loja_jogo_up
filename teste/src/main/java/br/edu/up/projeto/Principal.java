@@ -1,5 +1,6 @@
-package br.edu.up.projeto.views;
+package br.edu.up.projeto;
 
+import br.edu.up.projeto.views.MenuJogos;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
@@ -8,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 public class Principal {
     private static final Logger logger = LogManager.getLogger(Principal.class);
     public static void main(String[] args) {
-        logger.info("menu principal iniciado"); 
+        logger.info("Menu principal iniciado"); 
 
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
@@ -27,16 +28,17 @@ public class Principal {
                     MenuJogos.main(args);
                     break;
                 case 2:
-                    System.out.println("Saindo...");
+                    System.out.println("WIP...");
+                    break;
+                case 3:
+                    System.out.println("WIP...");
                     break;
                 default:
                     System.out.println("Opção inválida");
             }
         }while(resposta != 0);
 
-
-        logger.info("fim da aplicacao");
+        logger.info("Fim da aplicacao");
     }
-    
 
 }

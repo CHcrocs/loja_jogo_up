@@ -3,7 +3,7 @@ package br.edu.up.projeto.models;
 import java.util.List;
 import java.util.Scanner;
 
-public class jogoBuscar {
+public class JogoBuscar {
 
     public static void BuscarJogo(List<JogoMultiplayer> jogosMultiplayer, List<JogoSingleplayer> jogosSingleplayer) {
         @SuppressWarnings("resource")
