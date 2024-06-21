@@ -2,6 +2,8 @@ package br.edu.up.projeto.views;
 
 import java.util.Scanner;
 
+import br.edu.up.projeto.Principal;
+
 public class MenuUsuario {
     public static void menuUsuario(Scanner scanner, String[] args) {
         int resposta;
@@ -21,7 +23,7 @@ public class MenuUsuario {
                     System.out.println("WIP...");
                     break;
                 case 3:
-                    System.out.println("WIP...");
+                    MenuConta.main(args);
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -30,5 +32,6 @@ public class MenuUsuario {
                     System.out.println("Opção inválida");
             }
         } while (resposta != 0);
+        Principal.main(args);
     }
 }

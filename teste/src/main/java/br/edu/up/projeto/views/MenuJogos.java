@@ -6,7 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import br.edu.up.projeto.Principal;
+import br.edu.up.projeto.controller.ContaController;
 import br.edu.up.projeto.controller.JogoController;
+import br.edu.up.projeto.models.Conta;
 
 
 public class MenuJogos {
@@ -14,6 +16,8 @@ public class MenuJogos {
 
     public static void main(String[] args) {
         logger.info("Menu de jogos iniciado");
+
+        Conta conta = new Conta(ContaController.lerSaldo());
 
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
@@ -36,7 +40,7 @@ public class MenuJogos {
                     JogoController.BuscarJogo();
                     break;
                 case 3:
-                    // Adicione lógica para comprar jogo
+                    ContaController.comprarJogo(conta);
                     break;
                 case 0:
                     System.out.println("Voltando...");

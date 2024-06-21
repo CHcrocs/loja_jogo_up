@@ -8,8 +8,8 @@ import br.edu.up.projeto.models.Conta;
 public class MenuConta {
     public static void main(String[] args) {
 
-        Conta conta = new Conta(0.0);
-        
+        Conta conta = new Conta(ContaController.lerSaldo());
+
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
 
@@ -26,13 +26,13 @@ public class MenuConta {
 
             switch (resposta) {
                 case 1:
-                    ContaController.verSaldo(conta);
+                    System.out.println("Saldo atual: " + conta.getSaldo());
                     break;
                 case 2:
                     ContaController.adicionarSaldo(conta);
                     break;
                 case 3:
-                    System.out.println("Listando contas...");
+                    ContaController.verBiblioteca();
                     break;
                 case 0:
                     System.out.println("Saindo...");
