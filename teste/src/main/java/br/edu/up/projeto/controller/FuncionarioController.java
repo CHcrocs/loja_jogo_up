@@ -6,26 +6,39 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class FuncionarioController {
     public static void adicionarJogo(Scanner scanner) {
         // Reconhe informações do jogo
-        System.out.println("Digite o nome do jogo: ");
-        String nome = scanner.nextLine();
+        String nome = "";
+        String genero = "";
+        String classificacao = "";
+        double preco = 0.0;
 
-        System.out.println("Digite o gênero do jogo: ");
-        String genero = scanner.nextLine();
+        try {
+            System.out.println("Digite o nome do jogo: ");
+            nome = scanner.nextLine();
 
-        System.out.println("Digite a classificação indicativa do jogo: ");
-        String classificacao = scanner.nextLine();
+            System.out.println("Digite o gênero do jogo: ");
+            genero = scanner.nextLine();
 
-        System.out.println("Digite o preço do jogo: ");
-        Double preco = scanner.nextDouble();
-        scanner.nextLine(); // Consumir a nova linha restante
+            System.out.println("Digite a classificação indicativa do jogo: ");
+            classificacao = scanner.nextLine();
 
-        // Gravar arquivos no txt
+            System.out.println("Digite o preço do jogo: ");
+            preco = scanner.nextDouble();
+            scanner.nextLine(); // Consumir a nova linha restante
+
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Entrada inválida. Certifique-se de digitar o preço corretamente.");
+            scanner.nextLine(); // Consumir a entrada inválida
+            return; // Saia do método em caso de erro
+        }
+
+        // Escrever no arquivo
         try (FileWriter fw = new FileWriter("jogos.txt", true);
                 PrintWriter pw = new PrintWriter(fw)) {
             pw.println("Nome: " + nome);
@@ -34,8 +47,9 @@ public class FuncionarioController {
             pw.println("Preco: " + preco);
             pw.println(); // Adicionar uma linha em branco para separar os jogos
             System.out.println("Jogo adicionado com sucesso!");
+
         } catch (IOException e) {
-            System.out.println("Erro ao salvar jogo no arquivo" + e.getMessage());
+            System.out.println("Erro ao salvar jogo no arquivo: " + e.getMessage());
         }
     }
 

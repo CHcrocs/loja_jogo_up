@@ -1,2 +1,7 @@
 
 
+Nome: TFT
+Genero: TFT
+Classificacao: TFT
+Preco: 32.42
+

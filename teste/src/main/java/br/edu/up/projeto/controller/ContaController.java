@@ -62,14 +62,16 @@ public class ContaController {
     }
 
     public static double lerSaldo() {
-        String arquivo = "saldo.txt";
+        String arquivo = "usuarios.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
-            String linha = br.readLine();
-            if (linha != null) {
-                return Double.parseDouble(linha);
-            } else {
-                return 0.0;
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                // Crie um objeto Conta a partir da linha
+                Conta conta = Conta.fromString(linha);
+                // Retorne o saldo da conta
+                return conta.getSaldo();
             }
+            return 0.0; // Retorne 0.0 se o arquivo estiver vazio
         } catch (IOException | NumberFormatException e) {
             System.out.println("Erro ao ler saldo do arquivo: " + e.getMessage());
             return -1;
@@ -77,10 +79,48 @@ public class ContaController {
     }
 
     // Método para salvar o saldo em um arquivo de texto
-    private static void salvarSaldo(Conta conta) {
-        String arquivo = "saldo.txt";
-        try (PrintWriter pw = new PrintWriter(new FileWriter(arquivo, false))) {
-            pw.println(conta.getSaldo());
+    public static void salvarSaldo(Conta conta) {
+        String arquivo = "usuarios.txt";
+        String nomeConta = conta.getNome();
+
+        // Armazenará as novas linhas
+        StringBuilder novasLinhas = new StringBuilder();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            boolean contaEncontrada = false;
+
+            // Lê todas as linhas do arquivo
+            while ((linha = br.readLine()) != null) {
+                Conta usuario = Conta.fromString(linha);
+                if (usuario.getNome().equals(nomeConta)) {
+                    // Encontrou a conta, atualiza o saldo
+                    novasLinhas.append("Nome: ").append(usuario.getNome()).append("\n");
+                    novasLinhas.append("Senha: ").append(usuario.getSenha()).append("\n");
+                    novasLinhas.append("Saldo: ").append(conta.getSaldo()).append("\n");
+                    contaEncontrada = true;
+                } else {
+                    // Mantém as outras linhas como estavam
+                    novasLinhas.append(linha).append("\n");
+                }
+            }
+
+            if (!contaEncontrada) {
+                System.out.println("Conta não encontrada para atualizar o saldo.");
+                return;
+            }
+
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar saldo no arquivo: " + e.getMessage());
+            return; // Sai do método se houver erro
+        }
+
+        // Escreve todas as novas linhas de volta para o arquivo (sobrescrevendo o
+        // conteúdo antigo)
+        try (PrintWriter pw = new PrintWriter(new FileWriter(arquivo))) {
+            pw.print(novasLinhas.toString());
+            System.out.println("Saldo da conta atualizado com sucesso!");
+
         } catch (IOException e) {
             System.out.println("Erro ao salvar saldo no arquivo: " + e.getMessage());
         }
@@ -123,19 +163,23 @@ public class ContaController {
 
                     if (encontrado) {
                         detalhesJogo.append(chave).append(": ").append(valor).append("\n");
-                        if (linha.isEmpty()) {
-                            break;
-                        }
+                    }
+
+                    if (encontrado && linha.isEmpty()) {
+                        break;
                     }
                 }
             }
 
             if (encontrado) {
+                System.out.println("Detalhes do jogo encontrado:\n" + detalhesJogo.toString());
+
                 System.out.print("Deseja comprar o jogo '" + busca + "'? Digite [s] para sim ou [n] para não: ");
                 String resposta = scanner.nextLine().trim();
 
                 if (resposta.equalsIgnoreCase("s")) {
                     double precoJogo = obterPrecoDoJogo(detalhesJogo.toString());
+
                     if (conta.getSaldo() >= precoJogo) {
                         conta.setSaldo(conta.getSaldo() - precoJogo);
                         salvarSaldo(conta);
@@ -150,8 +194,9 @@ public class ContaController {
             } else {
                 System.out.println("Jogo '" + busca + "' não encontrado.");
             }
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao acessar o arquivo de jogos: " + e.getMessage());
         }
     }
 
@@ -180,5 +225,51 @@ public class ContaController {
         } catch (IOException e) {
             System.out.println("Erro ao adicionar jogo à biblioteca: " + e.getMessage());
         }
+    }
+
+    // METODO PARA CADASTRAR USUARIO
+    public static void cadastrarUsuario() {
+        String arquivo = "usuarios.txt";
+
+        @SuppressWarnings("resource")
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o nome do usuário: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Digite a senha: ");
+        String senha = scanner.nextLine();
+
+        System.out.print("Digite o saldo inicial: ");
+        double saldo = scanner.nextDouble();
+
+        Conta usuario = new Conta(nome, senha, saldo);
+
+        try (FileWriter fw = new FileWriter(arquivo, true);
+                PrintWriter pw = new PrintWriter(fw)) {
+            pw.println(usuario.toString());
+            System.out.println("Usuário cadastrado com sucesso!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Conta loginUsuario(String nome, String senha) {
+        String arquivo = "usuarios.txt";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                Conta usuario = Conta.fromString(line);
+                if (usuario.getNome().equals(nome) && usuario.getSenha().equals(senha)) {
+                    System.out.println("Login bem-sucedido para usuário: " + usuario.getNome());
+                    return usuario;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Nome de usuário ou senha incorretos.");
+        return null;
     }
 }
