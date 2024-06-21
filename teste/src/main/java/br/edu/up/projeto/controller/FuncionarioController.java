@@ -23,12 +23,20 @@ public class FuncionarioController {
         System.out.println("Digite a classificação indicativa do jogo: ");
         String classificacao = scanner.nextLine();
 
+        System.out.println("Digite se o jogo é online (true/false): ");
+        Boolean online = scanner.nextBoolean();
+
+        System.out.println("Digite o preço do jogo: ");
+        Double preco = scanner.nextDouble();
+
         // gravar arquivos no txt
         try (FileWriter fw = new FileWriter("jogos.txt", true);
                 PrintWriter pw = new PrintWriter(fw)) {
             pw.println("Nome: " + nome);
             pw.println("Gênero: " + genero);
             pw.println("Classificação: " + classificacao);
+            pw.println("Online: " + online);
+            pw.println("Preço: " + preco);
             pw.println("; ");
             System.out.println("Jogo adicionado com sucesso!");
         } catch (IOException e) {
