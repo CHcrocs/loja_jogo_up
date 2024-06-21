@@ -58,26 +58,34 @@ public class ContaController {
     }
 
     public static void verSaldo(Conta conta) {
-        System.out.println("Saldo atual: " + conta.getSaldo());
-    }
+        if (conta != null) {
+            System.out.println("Saldo atual: " + conta.getSaldo());
+        } else {
+            System.out.println("Conta não encontrada.");
+        }
+        }
 
-    public static double lerSaldo() {
+        public static double lerSaldo(Conta conta) {
+        if (conta == null) {
+            System.out.println("Conta não encontrada.");
+            return 0.0;
+        }
+
         String arquivo = "usuarios.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                // Crie um objeto Conta a partir da linha
-                Conta conta = Conta.fromString(linha);
-                // Retorne o saldo da conta
-                return conta.getSaldo();
+            Conta usuario = Conta.fromString(linha);
+            if (usuario.getNome().equals(conta.getNome())) {
+                return usuario.getSaldo();
             }
-            return 0.0; // Retorne 0.0 se o arquivo estiver vazio
+            }
+            return 0.0; // Retorne 0.0 se a conta não for encontrada
         } catch (IOException | NumberFormatException e) {
             System.out.println("Erro ao ler saldo do arquivo: " + e.getMessage());
             return -1;
         }
-    }
-
+        }
     // Método para salvar o saldo em um arquivo de texto
     public static void salvarSaldo(Conta conta) {
         String arquivo = "usuarios.txt";
@@ -139,17 +147,18 @@ public class ContaController {
     }
 
     public static void comprarJogo(Conta conta) {
-        String arquivo = "jogos.txt";
+        String arquivoJogos = "jogos.txt";
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Informe o nome do jogo que deseja comprar: ");
         String busca = scanner.nextLine().trim();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivoJogos))) {
             String linha;
             boolean encontrado = false;
             StringBuilder detalhesJogo = new StringBuilder();
+            double precoJogo = 0.0;
 
             while ((linha = br.readLine()) != null) {
                 String[] partes = linha.split(":", 2);
@@ -165,7 +174,7 @@ public class ContaController {
                         detalhesJogo.append(chave).append(": ").append(valor).append("\n");
                     }
 
-                    if (encontrado && linha.isEmpty()) {
+                    if (linha.isEmpty() && encontrado) {
                         break;
                     }
                 }
@@ -178,7 +187,7 @@ public class ContaController {
                 String resposta = scanner.nextLine().trim();
 
                 if (resposta.equalsIgnoreCase("s")) {
-                    double precoJogo = obterPrecoDoJogo(detalhesJogo.toString());
+                    precoJogo = obterPrecoDoJogo(detalhesJogo.toString());
 
                     if (conta.getSaldo() >= precoJogo) {
                         conta.setSaldo(conta.getSaldo() - precoJogo);
@@ -194,7 +203,6 @@ public class ContaController {
             } else {
                 System.out.println("Jogo '" + busca + "' não encontrado.");
             }
-
         } catch (IOException e) {
             System.out.println("Erro ao acessar o arquivo de jogos: " + e.getMessage());
         }

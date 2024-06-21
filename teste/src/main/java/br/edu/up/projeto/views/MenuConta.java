@@ -8,7 +8,8 @@ import br.edu.up.projeto.models.Conta;
 public class MenuConta {
     public static void main(String[] args) {
 
-        Conta conta = new Conta(ContaController.lerSaldo());
+        Conta conta = null;
+        conta = new Conta(ContaController.lerSaldo(conta));
 
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
