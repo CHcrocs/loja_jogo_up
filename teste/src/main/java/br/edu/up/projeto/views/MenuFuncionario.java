@@ -5,6 +5,16 @@ import java.util.Scanner;
 import br.edu.up.projeto.controller.FuncionarioController;
 
 public class MenuFuncionario {
+    
+    // Pede senha para o usuário
+    private static final String senha_usuario = "123";
+
+    public static boolean verifica_senha(Scanner scanner)
+    {
+        System.out.println("Digite a senha de acesso: ");
+        String senha = scanner.nextLine();
+        return senha_usuario.equals(senha);
+    }
 
     public static void menuFuncionario(Scanner scanner, String[] args) {
         int resposta;
