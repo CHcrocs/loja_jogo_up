@@ -5,7 +5,7 @@ import java.util.List;
 
 public class JogoSingleplayer extends Jogo {
 
-    public JogoSingleplayer(String nome, String genero, String classificacao, Boolean online){
+    public JogoSingleplayer(String nome, String genero, String classificacao, Boolean online) {
         super(nome, genero, classificacao, online);
 
     }
@@ -34,7 +34,7 @@ public class JogoSingleplayer extends Jogo {
         this.classificacao = classificacao;
     }
 
-    public static void listarJogos(List<JogoSingleplayer> jogosSingleplayer){
+    public static void listarJogos(List<JogoSingleplayer> jogosSingleplayer) {
         if (!jogosSingleplayer.isEmpty()) {
             // Ordena a lista de entradas em ordem alfabética
             Collections.sort(jogosSingleplayer, (e1, e2) -> {
@@ -48,24 +48,25 @@ public class JogoSingleplayer extends Jogo {
                 }
                 return nome1.compareTo(nome2);
             });
-            System.out.println("-------------------------------------------jogos singleplayes-------------------------------------------");
-            for (JogoSingleplayer jogoSingleplayer: jogosSingleplayer) {
+            System.out.println(
+                    "-------------------------------------------jogos singleplayes-------------------------------------------");
+            for (JogoSingleplayer jogoSingleplayer : jogosSingleplayer) {
                 System.out.println(jogoSingleplayer);
             }
             System.out.println();
         }
     }
 
-    public void procurarJogo(){}
+    public void procurarJogo() {
+    }
 
-    public void comprarJogo(String nome, Double preco){
-        
+    public void comprarJogo(String nome, Double preco) {
+
     }
 
     @Override
     public String toString() {
-        return 
-                "nome = '" + nome + '\'' +
+        return "nome = '" + nome + '\'' +
                 ", genero = '" + genero + '\'' +
                 ", classificacao = '" + classificacao + '\'' +
                 ", online = " + online;

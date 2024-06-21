@@ -7,7 +7,8 @@ public class JogoMultiplayer extends Jogo {
     public Integer numeroControles;
     public Double preco;
 
-    public JogoMultiplayer(String nome, String genero, String classificacao, Integer numeroControles, Boolean online, Double preco){
+    public JogoMultiplayer(String nome, String genero, String classificacao, Integer numeroControles, Boolean online,
+            Double preco) {
         super(nome, genero, classificacao, online);
         this.numeroControles = numeroControles;
         this.online = online;
@@ -54,7 +55,7 @@ public class JogoMultiplayer extends Jogo {
         this.preco = preco;
     }
 
-    public static void listarJogos(List<JogoMultiplayer> jogosMultiplayer){
+    public static void listarJogos(List<JogoMultiplayer> jogosMultiplayer) {
         if (!jogosMultiplayer.isEmpty()) {
             // Ordena a lista de entradas em ordem alfabética
             Collections.sort(jogosMultiplayer, (e1, e2) -> {
@@ -68,7 +69,8 @@ public class JogoMultiplayer extends Jogo {
                 }
                 return nome1.compareTo(nome2);
             });
-            System.out.println("-------------------------------------------jogos multiplayer-------------------------------------------");
+            System.out.println(
+                    "-------------------------------------------jogos multiplayer-------------------------------------------");
             for (JogoMultiplayer jogoMultiplayer : jogosMultiplayer) {
                 System.out.println(jogoMultiplayer);
             }
@@ -76,16 +78,16 @@ public class JogoMultiplayer extends Jogo {
         }
     }
 
-    public void procurarJogo(){}
+    public void procurarJogo() {
+    }
 
-    public void comprarJogo(String nome, Double preco){
+    public void comprarJogo(String nome, Double preco) {
 
     }
 
     @Override
     public String toString() {
-        return 
-                "nome = '" + nome + '\'' +
+        return "nome = '" + nome + '\'' +
                 ", genero = '" + genero + '\'' +
                 ", classificacao = '" + classificacao + '\'' +
                 ", numeroControles = " + numeroControles +

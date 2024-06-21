@@ -20,10 +20,12 @@ public class JogoBuscar {
         for (JogoMultiplayer jogoMultiplayer : jogosMultiplayer) {
             if (jogoMultiplayer.getNome().equalsIgnoreCase(itemBuscado)) {
                 System.out.println();
-                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                System.out.println(
+                        "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 System.out.println("Jogo encontrado!");
                 System.out.println(jogoMultiplayer);
-                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                System.out.println(
+                        "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 System.out.println();
                 exist = true;
                 break;

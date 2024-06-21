@@ -47,7 +47,7 @@ public class MenuJogos {
             resposta = scanner.nextInt();
 
             switch (resposta) {
-                case 1:  
+                case 1:
                     JogoSingleplayer.listarJogos(jogosSingleplayers);
                     JogoMultiplayer.listarJogos(jogosMultiplayers);
                     break;

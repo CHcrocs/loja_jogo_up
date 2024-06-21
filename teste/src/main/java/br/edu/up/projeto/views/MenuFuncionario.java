@@ -8,6 +8,7 @@ public class MenuFuncionario {
 
     public static void menuFuncionario(Scanner scanner, String[] args) {
         int resposta;
+
         do {
             System.out.println("[1] - Adicionar Jogo");
             System.out.println("[2] - Remover jogo");
@@ -16,6 +17,7 @@ public class MenuFuncionario {
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
             scanner.nextLine();
+
             switch (resposta) {
                 case 1:
                     // Chama método adicionarJogo
