@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class JogoBuscar {
+public class JogoController {
 
     public static void BuscarJogo() {
         String arquivo = "jogos.txt";
@@ -20,8 +20,8 @@ public class JogoBuscar {
             boolean encontrado = false;
 
             while ((linha = br.readLine()) != null) {
-                
-                String[] partes = linha.split(":", 2); 
+
+                String[] partes = linha.split(":", 2);
                 if (partes.length == 2) {
                     String chave = partes[0].trim();
                     String valor = partes[1].trim();
@@ -50,4 +50,29 @@ public class JogoBuscar {
             e.printStackTrace();
         }
     }
+
+    public static void listarJogos() {
+        String arquivo = "jogos.txt";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                // Separar a linha no caractere ':' para obter chave e valor
+                String[] partes = linha.split(":", 2);
+
+                if (partes.length == 2) {
+                    String chave = partes[0].trim();
+                    String valor = partes[1].trim();
+
+                    // Formatar a visualização
+                    System.out.println(chave + ": " + valor);
+                } else {
+                    System.out.println(linha);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

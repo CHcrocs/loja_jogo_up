@@ -6,8 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import br.edu.up.projeto.Principal;
-import br.edu.up.projeto.controller.JogoBuscar;
-import br.edu.up.projeto.controller.JogoListar;
+import br.edu.up.projeto.controller.JogoController;
+
 
 public class MenuJogos {
     private static final Logger logger = LogManager.getLogger(MenuJogos.class);
@@ -30,10 +30,10 @@ public class MenuJogos {
 
             switch (resposta) {
                 case 1:
-                    JogoListar.listarJogos();
+                    JogoController.listarJogos();
                     break;
                 case 2:
-                    JogoBuscar.BuscarJogo();
+                    JogoController.BuscarJogo();
                     break;
                 case 3:
                     // Adicione lógica para comprar jogo
