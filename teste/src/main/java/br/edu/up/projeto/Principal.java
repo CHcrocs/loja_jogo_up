@@ -26,6 +26,7 @@ public class Principal {
             System.out.println("[0] - Sair");
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
+            scanner.nextLine();
 
             switch (resposta) {
                 case 1:
@@ -33,8 +34,12 @@ public class Principal {
                     MenuUsuario.menuUsuario(scanner, args);
                     break;
                 case 2:
-                    // chama o método menuFuncionario da classe Funcionario
-                    MenuFuncionario.menuFuncionario(scanner, args);
+                    // chama o método menuFuncionario da classe MenuFuncionario
+                    if (MenuFuncionario.verifica_senha(scanner)){
+                        MenuFuncionario.menuFuncionario(scanner, args);
+                    } else{
+                        System.out.println("Senha incorreta");
+                    }
                     break;
                 case 0:
                     System.out.println("Saindo...");
