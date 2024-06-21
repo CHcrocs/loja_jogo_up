@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import br.edu.up.projeto.models.JogoMultiplayer;
 import br.edu.up.projeto.models.JogoSingleplayer;
-import br.edu.up.projeto.models.JogoBuscar;
 import br.edu.up.projeto.Principal;
+import br.edu.up.projeto.controller.JogoBuscar;
 
 public class MenuJogos {
     private static final Logger logger = LogManager.getLogger(MenuJogos.class);

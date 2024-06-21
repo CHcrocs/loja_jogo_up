@@ -5,7 +5,7 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import br.edu.up.projeto.models.Funcionario;
+import br.edu.up.projeto.views.MenuFuncionario;
 import br.edu.up.projeto.views.MenuJogos;
 
 public class Principal {
@@ -34,7 +34,7 @@ public class Principal {
                     break;
                 case 2:
                     // chama o método menuFuncionario da classe Funcionario
-                    Funcionario.menuFuncionario(scanner, args);
+                    MenuFuncionario.menuFuncionario(scanner, args);
                     break;
                 case 0:
                     System.out.println("Saindo...");

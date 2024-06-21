@@ -1,7 +1,10 @@
-package br.edu.up.projeto.models;
+package br.edu.up.projeto.controller;
 
 import java.util.List;
 import java.util.Scanner;
+
+import br.edu.up.projeto.models.JogoMultiplayer;
+import br.edu.up.projeto.models.JogoSingleplayer;
 
 public class JogoBuscar {
 
