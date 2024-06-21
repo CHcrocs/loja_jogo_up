@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FuncionarioController {
-    // método para adicionar jogos
     public static void adicionarJogo(Scanner scanner) {
-
-        // reconhe informações do jogo
+        // Reconhe informações do jogo
         System.out.println("Digite o nome do jogo: ");
         String nome = scanner.nextLine();
 
@@ -23,28 +21,25 @@ public class FuncionarioController {
         System.out.println("Digite a classificação indicativa do jogo: ");
         String classificacao = scanner.nextLine();
 
-        System.out.println("Digite se o jogo é online (true/false): ");
-        Boolean online = scanner.nextBoolean();
-
         System.out.println("Digite o preço do jogo: ");
         Double preco = scanner.nextDouble();
+        scanner.nextLine(); // Consumir a nova linha restante
 
-        // gravar arquivos no txt
+        // Gravar arquivos no txt
         try (FileWriter fw = new FileWriter("jogos.txt", true);
                 PrintWriter pw = new PrintWriter(fw)) {
             pw.println("Nome: " + nome);
-            pw.println("Gênero: " + genero);
-            pw.println("Classificação: " + classificacao);
-            pw.println("Online: " + online);
-            pw.println("Preço: " + preco);
-            pw.println("; ");
+            pw.println("Genero: " + genero);
+            pw.println("Classificacao: " + classificacao);
+            pw.println("Preco: " + preco);
+            pw.println(); // Adicionar uma linha em branco para separar os jogos
             System.out.println("Jogo adicionado com sucesso!");
         } catch (IOException e) {
             System.out.println("Erro ao salvar jogo no arquivo" + e.getMessage());
         }
     }
 
-   // Método para remover jogos
+    // Método para remover jogos
     public static void removerJogo(Scanner scanner) {
         String arquivo = "jogos.txt";
         List<String> jogos = new ArrayList<>();
@@ -68,7 +63,8 @@ public class FuncionarioController {
         for (int i = 0; i < jogos.size(); i++) {
             if (jogos.get(i).contains("Nome: " + busca)) {
                 // Remover as linhas correspondentes ao jogo
-                for (int j = 0; j < 4; j++) { // Supondo que cada jogo tem 4 linhas (Nome, Gênero, Classificação e ; )
+                for (int j = 0; j < 4; j++) { // Supondo que cada jogo tem 4 linhas (Nome, Gênero, Classificação e preco
+                                              // )
                     jogos.remove(i);
                 }
                 jogoRemovido = true;

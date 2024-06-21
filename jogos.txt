@@ -1,22 +1,2 @@
-Nome: gta
-G�nero: a��o
-Classifica��o: 18
-;
-Nome: COD
-Gênero: FPD
-Classificação: 16
-;
-Nome: Minecraft
-Gênero: Sandbox
-Classificação: Livre
-;
-Nome: Teste
-Gênero: Sandbox
-Classificação: Livre
-;
-Nome: lol
-G�nero: sla
-Classifica��o: 12
-Online: true
-Pre�o: 0.0
-; 
+
+

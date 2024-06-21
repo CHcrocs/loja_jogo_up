@@ -11,19 +11,13 @@ import br.edu.up.projeto.models.Conta;
 
 public class ContaController {
 
-    public static void adicionarSaldo(Conta conta){
+    public static void adicionarSaldo(Conta conta) {
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
 
-        // Ler saldo atual do arquivo antes de adicionar um novo valor
-        double saldoAtual = lerSaldo();
-        if (saldoAtual != -1) {
-            conta.setSaldo(saldoAtual);
-        }
-
         int resposta = -1;
 
-        do{
+        do {
             System.out.println("Escolha o valor que deseja adicionar: ");
             System.out.println("[1] - 10R$ ");
             System.out.println("[2] - 20R$ ");
@@ -33,7 +27,7 @@ public class ContaController {
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
 
-            switch(resposta){
+            switch (resposta) {
                 case 1:
                     conta.setSaldo(conta.getSaldo() + 10.0);
                     System.out.println("Adicionando 10R$...");
@@ -60,15 +54,25 @@ public class ContaController {
                 default:
                     System.out.println("Opção inválida");
             }
-        }while(resposta != 0);   
+        } while (resposta != 0);
     }
 
-    public static void verSaldo(Conta conta){
-        double saldo = lerSaldo();
-        if (saldo != -1) {
-            System.out.println("Saldo atual: " + saldo);
-        } else {
-            System.out.println("Não foi possível ler o saldo.");
+    public static void verSaldo(Conta conta) {
+        System.out.println("Saldo atual: " + conta.getSaldo());
+    }
+
+    public static double lerSaldo() {
+        String arquivo = "saldo.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha = br.readLine();
+            if (linha != null) {
+                return Double.parseDouble(linha);
+            } else {
+                return 0.0;
+            }
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Erro ao ler saldo do arquivo: " + e.getMessage());
+            return -1;
         }
     }
 
@@ -82,19 +86,99 @@ public class ContaController {
         }
     }
 
-    // Método para ler o saldo do arquivo de texto
-    private static double lerSaldo() {
-        String arquivo = "saldo.txt";
+    public static void verBiblioteca() {
+        String arquivo = "biblioteca.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
-            String linha = br.readLine();
-            if (linha != null) {
-                return Double.parseDouble(linha);
-            } else {
-                return 0.0;
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                System.out.println(linha);
             }
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Erro ao ler saldo do arquivo: " + e.getMessage());
-            return -1;
+        } catch (IOException e) {
+            System.out.println("Erro ao ler biblioteca de jogos: " + e.getMessage());
+        }
+    }
+
+    public static void comprarJogo(Conta conta) {
+        String arquivo = "jogos.txt";
+        @SuppressWarnings("resource")
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Informe o nome do jogo que deseja comprar: ");
+        String busca = scanner.nextLine().trim();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            boolean encontrado = false;
+            StringBuilder detalhesJogo = new StringBuilder();
+
+            while ((linha = br.readLine()) != null) {
+                String[] partes = linha.split(":", 2);
+                if (partes.length == 2) {
+                    String chave = partes[0].trim();
+                    String valor = partes[1].trim();
+
+                    if (chave.equalsIgnoreCase("Nome") && valor.equalsIgnoreCase(busca)) {
+                        encontrado = true;
+                    }
+
+                    if (encontrado) {
+                        detalhesJogo.append(chave).append(": ").append(valor).append("\n");
+                        if (linha.isEmpty()) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (encontrado) {
+                System.out.print("Deseja comprar o jogo '" + busca + "'? Digite [s] para sim ou [n] para não: ");
+                String resposta = scanner.nextLine().trim();
+
+                if (resposta.equalsIgnoreCase("s")) {
+                    double precoJogo = obterPrecoDoJogo(detalhesJogo.toString());
+                    if (conta.getSaldo() >= precoJogo) {
+                        conta.setSaldo(conta.getSaldo() - precoJogo);
+                        salvarSaldo(conta);
+                        adicionarJogoABiblioteca(detalhesJogo.toString());
+                        System.out.println("Jogo comprado com sucesso!");
+                    } else {
+                        System.out.println("Saldo insuficiente para comprar o jogo.");
+                    }
+                } else {
+                    System.out.println("Compra cancelada.");
+                }
+            } else {
+                System.out.println("Jogo '" + busca + "' não encontrado.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Método para obter o preço do jogo a partir dos detalhes do jogo
+    private static double obterPrecoDoJogo(String detalhesJogo) {
+        // Supondo que o preço esteja na linha "Preço: X", onde X é o valor do preço
+        for (String linha : detalhesJogo.split("\n")) {
+            if (linha.startsWith("Preco:")) {
+                try {
+                    double preco = Double.parseDouble(linha.split(":")[1].trim());
+                    return preco;
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro ao ler o preço do jogo: " + e.getMessage());
+                }
+            }
+        }
+        return 0.0; // Retorne 0 se não conseguir encontrar o preço
+    }
+
+    // Método para adicionar o jogo à biblioteca de jogos
+    private static void adicionarJogoABiblioteca(String detalhesJogo) {
+        String arquivo = "biblioteca.txt";
+        try (PrintWriter pw = new PrintWriter(new FileWriter(arquivo, true))) {
+            pw.println(detalhesJogo);
+            pw.println(); // Adiciona uma linha em branco entre as entradas de jogos
+        } catch (IOException e) {
+            System.out.println("Erro ao adicionar jogo à biblioteca: " + e.getMessage());
         }
     }
 }
