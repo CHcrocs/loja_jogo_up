@@ -1,60 +1,53 @@
 package br.edu.up.projeto.controller;
 
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
-
-import br.edu.up.projeto.models.JogoMultiplayer;
-import br.edu.up.projeto.models.JogoSingleplayer;
 
 public class JogoBuscar {
 
-    public static void BuscarJogo(List<JogoMultiplayer> jogosMultiplayer, List<JogoSingleplayer> jogosSingleplayer) {
+    public static void BuscarJogo() {
+        String arquivo = "jogos.txt";
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Insira o nome do jogo que deseja buscar: ");
-        String itemBuscado = scanner.nextLine();
 
-        Boolean exist = false;
+        System.out.print("Informe o nome do jogo que deseja encontrar: ");
+        String busca = scanner.nextLine().trim();
 
-        // Verifica se o jogo está presente no catálogo de jogos multiplayer
-        for (JogoMultiplayer jogoMultiplayer : jogosMultiplayer) {
-            if (jogoMultiplayer.getNome().equalsIgnoreCase(itemBuscado)) {
-                System.out.println();
-                System.out.println(
-                        "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                System.out.println("Jogo encontrado!");
-                System.out.println(jogoMultiplayer);
-                System.out.println(
-                        "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                System.out.println();
-                exist = true;
-                break;
-            }
-        }
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            boolean encontrado = false;
 
-        // Verifica se o jogo está presente no catálogo de jogos singleplayer
-        if (!exist) {
-            for (JogoSingleplayer jogoSingleplayer : jogosSingleplayer) {
-                if (jogoSingleplayer.getNome().equalsIgnoreCase(itemBuscado)) {
-                    System.out.println();
-                    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    System.out.println("Jogo encontrado!");
-                    System.out.println(jogoSingleplayer);
-                    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    System.out.println();
-                    exist = true;
-                    break;
+            while ((linha = br.readLine()) != null) {
+                
+                String[] partes = linha.split(":", 2); 
+                if (partes.length == 2) {
+                    String chave = partes[0].trim();
+                    String valor = partes[1].trim();
+
+                    if (valor.equalsIgnoreCase(busca)) {
+                        encontrado = true;
+                    }
+
+                    if (encontrado) {
+                        System.out.println(chave + ": " + valor);
+                        if (!linha.contains(":")) {
+                            break;
+                        }
+                    }
+                } else {
+                    if (encontrado) {
+                        break;
+                    }
+                    System.out.println(" ");
                 }
             }
-        }
-
-        // Caso o jogo não seja encontrado em nenhum dos catálogos
-        if (!exist) {
-            System.out.println();
-            System.out.println("################################################################################");
-            System.out.println("Jogo '" + itemBuscado + "' não encontrado em nenhum dos catálogos de jogos!");
-            System.out.println("################################################################################");
-            System.out.println();
+            if (!encontrado) {
+                System.out.println("Informação '" + busca + "' não encontrada.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

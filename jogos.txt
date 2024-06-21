@@ -1,4 +1,16 @@
 Nome: gta
-Gênero: a‡Æo
-Classificação: 18
-
+Gï¿½nero: aï¿½ï¿½o
+Classificaï¿½ï¿½o: 18
+;
+Nome: COD
+GÃªnero: FPD
+ClassificaÃ§Ã£o: 16
+;
+Nome: Minecraft
+GÃªnero: Sandbox
+ClassificaÃ§Ã£o: Livre
+;
+Nome: Teste
+GÃªnero: Sandbox
+ClassificaÃ§Ã£o: Livre
+;

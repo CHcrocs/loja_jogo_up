@@ -25,7 +25,7 @@ public class FuncionarioController {
             pw.println("Nome: " + nome);
             pw.println("Gênero: " + genero);
             pw.println("Classificação: " + classificacao);
-            pw.println();
+            pw.println("; ");
             System.out.println("Jogo adicionado com sucesso!");
         } catch (IOException e) {
             System.out.println("Erro ao salvar jogo no arquivo" + e.getMessage());
