@@ -23,7 +23,6 @@ public class Principal {
 
         int resposta = -1;
 
-        // Primeiro menu para selecionar tipo de usuário
         do {
             try {
 

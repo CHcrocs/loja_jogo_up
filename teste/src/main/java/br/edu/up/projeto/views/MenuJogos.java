@@ -17,8 +17,7 @@ public class MenuJogos {
     public static void main(String[] args) {
         logger.info("Menu de jogos iniciado");
 
-        Conta conta = new Conta();
-        conta.setSaldo(ContaController.lerSaldo(conta));
+        Conta conta = new Conta(ContaController.lerSaldo());
 
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);

@@ -1,3 +1,2 @@
-Nome: Pisca, Senha: 123, Saldo: 65.0
-Nome: Pisca1, Senha: 123, Saldo: 654.0
-Nome: Login, Senha: 32, Saldo: 543.0
+Saldo: 115.0
+

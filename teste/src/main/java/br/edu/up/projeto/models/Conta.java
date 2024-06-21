@@ -49,57 +49,18 @@ public class Conta {
     }
 
     public static Conta fromString(String line) {
-        String[] parts = line.split(", ");
-    
-        if (parts.length == 1) {
-            // Formato: Nome: Pisca
-            parts = line.split(": ");
-            String chave = parts[0].trim();
-            String valor = parts[1].trim();
-    
-            switch (chave) {
-                case "Nome":
-                    return new Conta(valor, null, 0.0);
-                case "Senha":
-                    return new Conta(null, valor, 0.0);
-                case "Saldo":
-                    return new Conta(null, null, Double.parseDouble(valor));
-                default:
-                    return null; // Trate isso conforme sua lógica de erro
-            }
-        } else if (parts.length == 3) {
-            // Formato: Nome: Login2, Senha: 1233, Saldo: 200.0
-            String nome = null;
-            String senha = null;
-            double saldo = 0.0;
-            Conta conta = null; // Declare and initialize the 'conta' variable
-    
-            for (String part : parts) {
-                String[] keyValue = part.split(": ");
-                String key = keyValue[0].trim();
-                String value = keyValue[1].trim();
-    
-                switch (key) {
-                    case "Nome":
-                        nome = value;
-                        break;
-                    case "Senha":
-                        senha = value;
-                        break;
-                    case "Saldo":
-                        saldo = Double.parseDouble(value);
-                        break;
-                    default:
-                        // Trate isso conforme sua lógica de erro
-                        return null;
-                }
-            }
-    
-            conta = new Conta(nome, senha, saldo); // Assign the created 'Conta' object to the 'conta' variable
-            return conta; // Return the 'conta' variable
-        } else {
-            // Trate isso conforme sua lógica de erro
-            return null;
+        line = line.replace("Nome: ", "").replace("Senha: ", "").replace("Saldo: ", "").trim();
+
+        String[] parts = line.split(",");
+
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].trim();
         }
+
+        String nome = parts[0];
+        String senha = parts[1];
+        double saldo = Double.parseDouble(parts[2]);
+
+        return new Conta(nome, senha, saldo);
     }
 }
