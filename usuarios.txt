@@ -1,3 +1,1 @@
-Saldo: 621.58
-
 Nome: rafael, Senha: 123, Saldo: 1000.0
