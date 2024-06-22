@@ -26,6 +26,7 @@ public class ContaController {
             System.out.println("[0] - Voltar");
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
+            scanner.nextLine();
 
             switch (resposta) {
                 case 1:
@@ -59,34 +60,34 @@ public class ContaController {
 
     public static void verSaldo(Conta conta) {
         System.out.println("Saldo atual: " + conta.getSaldo());
-    }
+        }
 
-    public static double lerSaldo() {
+        public static double lerSaldo() {
         String arquivo = "saldo.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha = br.readLine();
             if (linha != null) {
-                return Double.parseDouble(linha);
+            return Double.parseDouble(linha);
             } else {
-                return 0.0;
+            return 0.0;
             }
         } catch (IOException | NumberFormatException e) {
             System.out.println("Erro ao ler saldo do arquivo: " + e.getMessage());
             return 0.0;
         }
-    }
+        }
 
-    // Método para salvar o saldo em um arquivo de texto
-    private static void salvarSaldo(Conta conta) {
+        // Método para salvar o saldo em um arquivo de texto
+        private static void salvarSaldo(Conta conta) {
         String arquivo = "saldo.txt";
         try (PrintWriter pw = new PrintWriter(new FileWriter(arquivo, false))) {
-            pw.println("Saldo: " + conta.getSaldo());
+            pw.println(conta.getSaldo());
         } catch (IOException e) {
             System.out.println("Erro ao salvar saldo no arquivo: " + e.getMessage());
         }
-    }
+        }
 
-    public static void verBiblioteca() {
+        public static void verBiblioteca() {
         String arquivo = "biblioteca.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;

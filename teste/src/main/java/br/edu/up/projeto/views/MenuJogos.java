@@ -31,6 +31,8 @@ public class MenuJogos {
             System.out.println("[0] - voltar");
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
+            scanner.nextLine();
+
 
             switch (resposta) {
                 case 1:

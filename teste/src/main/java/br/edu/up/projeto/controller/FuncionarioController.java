@@ -102,11 +102,9 @@ public class FuncionarioController {
             System.out.println("Jogo não encontrado.");
         }
     }
-    
 
     // método para atualizar valor do jogo
-    public static void alterarInfo(Scanner scanner)
-    {
+    public static void alterarInfo(Scanner scanner) {
         String arquivo = "jogos.txt";
         System.out.println("Lista de Jogos Disponíveis:");
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
@@ -124,7 +122,7 @@ public class FuncionarioController {
         System.out.print("\nDigite o nome do jogo que deseja alterar o preço: ");
         String nomeJogo = scanner.nextLine().trim();
 
-         // Solicitar o novo preço
+        // Solicitar o novo preço
         System.out.print("Digite o novo preço para o jogo: ");
         double novoPreco;
         try {
@@ -135,7 +133,7 @@ public class FuncionarioController {
         }
         boolean jogoEncontrado = false;
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo));
-             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("temp.txt")))) {
+                PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("temp.txt")))) {
             String linha;
             while ((linha = br.readLine()) != null) {
                 if (linha.startsWith("Nome: " + nomeJogo)) {
@@ -167,7 +165,5 @@ public class FuncionarioController {
             System.out.println("Jogo não encontrado. Nenhuma alteração realizada.");
         }
     }
-            
-    }
 
-
+}

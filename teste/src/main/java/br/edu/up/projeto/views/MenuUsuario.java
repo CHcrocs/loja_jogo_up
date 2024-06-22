@@ -15,6 +15,7 @@ public class MenuUsuario {
                 System.out.println("[0] - Sair");
                 System.out.print("Escolha uma opção: ");
                 resposta = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (resposta) {
                     case 1:
