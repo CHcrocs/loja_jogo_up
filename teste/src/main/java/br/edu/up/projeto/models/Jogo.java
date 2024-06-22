@@ -6,12 +6,14 @@ abstract public class Jogo {
     private String genero;
     private String classificacao;
     private Double preco;
+    private int contaId; // Chave estrangeira
 
-    public Jogo(String nome, String genero, String classificacao, Double preco) {
+    public Jogo(String nome, String genero, String classificacao, Double preco, int contaId) {
         this.nome = nome;
         this.genero = genero;
         this.classificacao = classificacao;
         this.preco = preco;
+        this.contaId = contaId;
     }
 
     public String getNome() {
@@ -46,6 +48,11 @@ abstract public class Jogo {
         this.preco = preco;
     }
 
-    
-    
+    public int getContaId() {
+        return contaId;
+    }
+
+    public void setContaId(int contaId) {
+        this.contaId = contaId;
+    }
 }
