@@ -1,6 +1,7 @@
 package br.edu.up.projeto.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -60,35 +61,55 @@ public class ContaController {
 
     public static void verSaldo(Conta conta) {
         System.out.println("Saldo atual: " + conta.getSaldo());
-        }
+    }
 
-        public static double lerSaldo() {
-        String arquivo = "saldo.txt";
+    public static double lerSaldo(int contaId) {
+        String arquivo = "saldo_" + contaId + ".txt";
+        File file = new File(arquivo);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                try (PrintWriter pw = new PrintWriter(new FileWriter(arquivo, false))) {
+                    pw.println("0.0");
+                }
+            } catch (IOException e) {
+                System.out.println("Erro ao criar arquivo de saldo: " + e.getMessage());
+                return 0.0;
+            }
+        }
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha = br.readLine();
             if (linha != null) {
-            return Double.parseDouble(linha);
+                return Double.parseDouble(linha);
             } else {
-            return 0.0;
+                return 0.0;
             }
         } catch (IOException | NumberFormatException e) {
             System.out.println("Erro ao ler saldo do arquivo: " + e.getMessage());
             return 0.0;
         }
-        }
+    }
 
-        // Método para salvar o saldo em um arquivo de texto
-        private static void salvarSaldo(Conta conta) {
-        String arquivo = "saldo.txt";
+    // Método para salvar o saldo em um arquivo de texto
+    private static void salvarSaldo(Conta conta) {
+        String arquivo = "saldo_" + conta.getId() + ".txt";
         try (PrintWriter pw = new PrintWriter(new FileWriter(arquivo, false))) {
             pw.println(conta.getSaldo());
         } catch (IOException e) {
             System.out.println("Erro ao salvar saldo no arquivo: " + e.getMessage());
         }
-        }
+    }
 
-        public static void verBiblioteca() {
-        String arquivo = "biblioteca.txt";
+    public static void verBiblioteca(Conta conta) {
+        String arquivo = "biblioteca_" + conta.getId() + ".txt";
+        File file = new File(arquivo);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Erro ao criar arquivo de biblioteca: " + e.getMessage());
+            }
+        }
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
@@ -140,7 +161,7 @@ public class ContaController {
                     if (conta.getSaldo() >= precoJogo) {
                         conta.setSaldo(conta.getSaldo() - precoJogo);
                         salvarSaldo(conta);
-                        adicionarJogoABiblioteca(detalhesJogo.toString());
+                        adicionarJogoABiblioteca(conta, detalhesJogo.toString());
                         System.out.println("Jogo comprado com sucesso!");
                     } else {
                         System.out.println("Saldo insuficiente para comprar o jogo.");
@@ -158,7 +179,6 @@ public class ContaController {
 
     // Método para obter o preço do jogo a partir dos detalhes do jogo
     private static double obterPrecoDoJogo(String detalhesJogo) {
-        // Supondo que o preço esteja na linha "Preço: X", onde X é o valor do preço
         for (String linha : detalhesJogo.split("\n")) {
             if (linha.startsWith("Preco:")) {
                 try {
@@ -173,8 +193,8 @@ public class ContaController {
     }
 
     // Método para adicionar o jogo à biblioteca de jogos
-    private static void adicionarJogoABiblioteca(String detalhesJogo) {
-        String arquivo = "biblioteca.txt";
+    private static void adicionarJogoABiblioteca(Conta conta, String detalhesJogo) {
+        String arquivo = "biblioteca_" + conta.getId() + ".txt";
         try (PrintWriter pw = new PrintWriter(new FileWriter(arquivo, true))) {
             pw.println(detalhesJogo);
             pw.println(); // Adiciona uma linha em branco entre as entradas de jogos

@@ -6,9 +6,7 @@ import br.edu.up.projeto.controller.ContaController;
 import br.edu.up.projeto.models.Conta;
 
 public class MenuConta {
-    public static void main(String[] args) {
-
-        Conta conta = new Conta(ContaController.lerSaldo());
+    public static void menuDeConta(Conta conta) {
 
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
@@ -32,7 +30,7 @@ public class MenuConta {
                     ContaController.adicionarSaldo(conta);
                     break;
                 case 3:
-                    ContaController.verBiblioteca();
+                    ContaController.verBiblioteca(conta);
                     break;
                 case 0:
                     System.out.println("Saindo...");
