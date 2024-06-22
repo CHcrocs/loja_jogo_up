@@ -22,7 +22,7 @@ public class MenuFuncionario {
         do {
             System.out.println("[1] - Adicionar Jogo");
             System.out.println("[2] - Remover jogo");
-            System.out.println("[3] - Gerenciar contas");
+            System.out.println("[3] - Alterar informações de jogos");
             System.out.println("[0] - Sair");
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
@@ -39,7 +39,7 @@ public class MenuFuncionario {
                     break;
                 case 3:
                     // Chama método ou classe para gerenciar contas
-                    System.out.println("Gerenciamento de contas - WIP...");
+                    FuncionarioController.alterarInfo(scanner);
                     break;
                 case 0:
                     System.out.println("Saindo...");

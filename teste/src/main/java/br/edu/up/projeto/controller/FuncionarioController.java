@@ -1,6 +1,7 @@
 package br.edu.up.projeto.controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -101,4 +102,72 @@ public class FuncionarioController {
             System.out.println("Jogo não encontrado.");
         }
     }
-}
+    
+
+    // método para atualizar valor do jogo
+    public static void alterarInfo(Scanner scanner)
+    {
+        String arquivo = "jogos.txt";
+        System.out.println("Lista de Jogos Disponíveis:");
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                if (linha.startsWith("Nome: ")) {
+                    System.out.println(linha);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo de jogos: " + e.getMessage());
+            return;
+        }
+        // Solicitar o nome do jogo que terá o preço alterado
+        System.out.print("\nDigite o nome do jogo que deseja alterar o preço: ");
+        String nomeJogo = scanner.nextLine().trim();
+
+         // Solicitar o novo preço
+        System.out.print("Digite o novo preço para o jogo: ");
+        double novoPreco;
+        try {
+            novoPreco = Double.parseDouble(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("Valor inválido para o preço. A alteração foi cancelada.");
+            return;
+        }
+        boolean jogoEncontrado = false;
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo));
+             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("temp.txt")))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                if (linha.startsWith("Nome: " + nomeJogo)) {
+                    pw.println("Nome: " + nomeJogo);
+                    pw.println(br.readLine()); // Gênero
+                    pw.println(br.readLine()); // Classificação
+                    pw.println("Preco: " + novoPreco);
+                    br.readLine(); // Ler linha em branco
+                    jogoEncontrado = true;
+                    System.out.println("Preço do jogo alterado com sucesso!");
+                } else {
+                    pw.println(linha);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao realizar a alteração no arquivo de jogos: " + e.getMessage());
+            return;
+        }
+        // caso o jogo seja encontrado
+        if (jogoEncontrado) {
+            try {
+                if (java.nio.file.Files.deleteIfExists(java.nio.file.Paths.get(arquivo))) {
+                    java.nio.file.Files.move(java.nio.file.Paths.get("temp.txt"), java.nio.file.Paths.get(arquivo));
+                }
+            } catch (IOException e) {
+                System.out.println("Erro ao renomear o arquivo temporário: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Jogo não encontrado. Nenhuma alteração realizada.");
+        }
+    }
+            
+    }
+
+
