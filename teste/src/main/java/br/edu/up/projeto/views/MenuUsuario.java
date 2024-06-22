@@ -19,7 +19,7 @@ public class MenuUsuario {
 
                 switch (resposta) {
                     case 1:
-                        MenuJogos.main(args);
+                        MenuJogos.menuDeJogos();
                         break;
                     case 2:
                         System.out.println("WIP...");

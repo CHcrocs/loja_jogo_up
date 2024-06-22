@@ -5,7 +5,6 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import br.edu.up.projeto.Principal;
 import br.edu.up.projeto.controller.ContaController;
 import br.edu.up.projeto.controller.JogoController;
 import br.edu.up.projeto.models.Conta;
@@ -14,7 +13,7 @@ import br.edu.up.projeto.models.Conta;
 public class MenuJogos {
     private static final Logger logger = LogManager.getLogger(MenuJogos.class);
 
-    public static void main(String[] args) {
+    public static void menuDeJogos() {
         logger.info("Menu de jogos iniciado");
 
         Conta conta = new Conta(ContaController.lerSaldo());
@@ -53,7 +52,6 @@ public class MenuJogos {
 
         } while (resposta != 0);
         logger.info("Menu de jogos finalizado");
-        Principal.main(args);
     }
 
 }

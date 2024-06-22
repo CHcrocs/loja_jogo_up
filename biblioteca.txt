@@ -14,3 +14,9 @@ Classificacao: livre
 Preco: 100.0
 
 
+Nome: nba
+Genero: esporte
+Classificacao: livre
+Preco: 100.0
+
+
