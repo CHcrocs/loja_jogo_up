@@ -66,10 +66,12 @@ public class ContaController {
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
+                // Crie um objeto Conta a partir da linha
                 Conta conta = Conta.fromString(linha);
+                // Retorne o saldo da conta
                 return conta.getSaldo();
             }
-            return 0.0;
+            return 0.0; // Retorne 0.0 se o arquivo estiver vazio
         } catch (IOException | NumberFormatException e) {
             System.out.println("Erro ao ler saldo do arquivo: " + e.getMessage());
             return -1;

@@ -57,6 +57,7 @@ public class Conta {
             parts[i] = parts[i].trim();
         }
 
+        // Analise as partes da string
         String nome = parts[0];
         String senha = parts[1];
         double saldo = Double.parseDouble(parts[2]);
