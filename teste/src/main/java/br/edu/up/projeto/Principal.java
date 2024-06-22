@@ -6,8 +6,6 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import br.edu.up.projeto.controller.ContaController;
-import br.edu.up.projeto.models.Conta;
 import br.edu.up.projeto.views.MenuFuncionario;
 import br.edu.up.projeto.views.MenuUsuario;
 
@@ -28,7 +26,6 @@ public class Principal {
 
                 System.out.println("[1] - Logar como Usuário");
                 System.out.println("[2] - Logar como Funcionário");
-                System.out.println("[3] - Cadastrar Usuário");
                 System.out.println("[0] - Sair");
                 System.out.print("Escolha uma opção: ");
                 resposta = scanner.nextInt();
@@ -36,18 +33,7 @@ public class Principal {
 
                 switch (resposta) {
                     case 1:
-                        // Menu para Usuário
-                        System.out.print("Digite o nome do usuário: ");
-                        String nome = scanner.nextLine();
-
-                        System.out.print("Digite a senha: ");
-                        String senha = scanner.nextLine();
-
-                        Conta usuario = ContaController.loginUsuario(nome, senha);
-                        if (usuario != null) {
-                            System.out.println("Usuário logado: " + usuario);
-                            MenuUsuario.menuUsuario(scanner, args);
-                        }
+                        MenuUsuario.menuUsuario(scanner, args);
                         break;
                     case 2:
                         // chama o método menuFuncionario da classe MenuFuncionario
@@ -56,9 +42,6 @@ public class Principal {
                         } else {
                             System.out.println("Senha incorreta");
                         }
-                        break;
-                    case 3:
-                        ContaController.cadastrarUsuario();
                         break;
                     case 0:
                         System.out.println("Saindo...");

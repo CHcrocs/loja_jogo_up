@@ -62,16 +62,14 @@ public class ContaController {
     }
 
     public static double lerSaldo() {
-        String arquivo = "usuarios.txt";
+        String arquivo = "saldo.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
-            while ((linha = br.readLine()) != null) {
-                // Crie um objeto Conta a partir da linha
-                Conta conta = Conta.fromString(linha);
-                // Retorne o saldo da conta
-                return conta.getSaldo();
+            String linha = br.readLine();
+            if (linha != null) {
+                return Double.parseDouble(linha);
+            } else {
+                return 0.0;
             }
-            return 0.0; // Retorne 0.0 se o arquivo estiver vazio
         } catch (IOException | NumberFormatException e) {
             System.out.println("Erro ao ler saldo do arquivo: " + e.getMessage());
             return -1;
@@ -80,12 +78,9 @@ public class ContaController {
 
     // Método para salvar o saldo em um arquivo de texto
     private static void salvarSaldo(Conta conta) {
-        String arquivo = "usuarios.txt";
+        String arquivo = "saldo.txt";
         try (PrintWriter pw = new PrintWriter(new FileWriter(arquivo, false))) {
             pw.println("Saldo: " + conta.getSaldo());
-            pw.println(); // Adicionar uma linha em branco para separar as contas
-            System.out.println("Saldo da conta salvo com sucesso!");
-
         } catch (IOException e) {
             System.out.println("Erro ao salvar saldo no arquivo: " + e.getMessage());
         }
@@ -185,51 +180,5 @@ public class ContaController {
         } catch (IOException e) {
             System.out.println("Erro ao adicionar jogo à biblioteca: " + e.getMessage());
         }
-    }
-
-    // METODO PARA CADASTRAR USUARIO
-    public static void cadastrarUsuario() {
-        String arquivo = "usuarios.txt";
-
-        @SuppressWarnings("resource")
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Digite o nome do usuário: ");
-        String nome = scanner.nextLine();
-
-        System.out.print("Digite a senha: ");
-        String senha = scanner.nextLine();
-
-        System.out.print("Digite o saldo inicial: ");
-        double saldo = scanner.nextDouble();
-
-        Conta usuario = new Conta(nome, senha, saldo);
-
-        try (FileWriter fw = new FileWriter(arquivo, true);
-                PrintWriter pw = new PrintWriter(fw)) {
-            pw.println(usuario.toString());
-            System.out.println("Usuário cadastrado com sucesso!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static Conta loginUsuario(String nome, String senha) {
-        String arquivo = "usuarios.txt";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                Conta usuario = Conta.fromString(line);
-                if (usuario.getNome().equals(nome) && usuario.getSenha().equals(senha)) {
-                    System.out.println("Login bem-sucedido!");
-                    return usuario;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Nome de usuário ou senha incorretos.");
-        return null;
     }
 }
