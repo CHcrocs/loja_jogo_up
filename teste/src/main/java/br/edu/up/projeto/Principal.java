@@ -6,11 +6,10 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import br.edu.up.projeto.views.MenuFuncionario;
-import br.edu.up.projeto.views.MenuUsuario;
-
 import br.edu.up.projeto.controller.ContaController;
 import br.edu.up.projeto.models.Conta;
+import br.edu.up.projeto.views.MenuFuncionario;
+import br.edu.up.projeto.views.MenuUsuario;
 
 public class Principal {
     private static final Logger logger = LogManager.getLogger(Principal.class);
