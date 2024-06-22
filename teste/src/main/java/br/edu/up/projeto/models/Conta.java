@@ -4,9 +4,6 @@ public class Conta {
 
     private double saldo;
 
-    public Conta() {
-    }
-
     public Conta(Double saldo) {
         this.saldo = saldo;
     }
