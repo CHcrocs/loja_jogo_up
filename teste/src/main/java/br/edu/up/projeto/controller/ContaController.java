@@ -72,7 +72,7 @@ public class ContaController {
             }
         } catch (IOException | NumberFormatException e) {
             System.out.println("Erro ao ler saldo do arquivo: " + e.getMessage());
-            return -1;
+            return 0.0;
         }
     }
 
