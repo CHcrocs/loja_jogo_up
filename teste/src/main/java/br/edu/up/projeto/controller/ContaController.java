@@ -12,6 +12,7 @@ import br.edu.up.projeto.models.Conta;
 
 public class ContaController {
 
+    // Método para adicionar saldo a uma conta
     public static void adicionarSaldo(Conta conta) {
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
@@ -19,6 +20,7 @@ public class ContaController {
         int resposta = -1;
 
         do {
+            // Exibe as opções de valores para adicionar ao saldo
             System.out.println(" ");
             System.out.println("Escolha o valor que deseja adicionar: ");
             System.out.println("[1] - 10R$ ");
@@ -30,6 +32,7 @@ public class ContaController {
             resposta = scanner.nextInt();
             System.out.println(" ");
 
+            // Adiciona o valor escolhido ao saldo da conta e salva o saldo no arquivo
             switch (resposta) {
                 case 1:
                     conta.setSaldo(conta.getSaldo() + 10.0);
@@ -59,17 +62,20 @@ public class ContaController {
                 default:
                     System.out.println("Opção inválida");
             }
-        } while (resposta != 0);
+        } while (resposta != 0); // Repete o loop até que a opção 0 seja escolhida
     }
 
+    // Método para visualizar o saldo atual da conta
     public static void verSaldo(Conta conta) {
         System.out.println("Saldo atual: " + conta.getSaldo());
     }
 
+    // Método para ler o saldo de um arquivo específico baseado no ID da conta
     public static double lerSaldo(int contaId) {
         String arquivo = "saldo_" + contaId + ".txt";
         File file = new File(arquivo);
         if (!file.exists()) {
+            // Cria um novo arquivo de saldo com valor inicial 0.0 se não existir
             try {
                 file.createNewFile();
                 try (PrintWriter pw = new PrintWriter(new FileWriter(arquivo, false))) {
@@ -80,6 +86,7 @@ public class ContaController {
                 return 0.0;
             }
         }
+        // Lê o saldo do arquivo e retorna o valor
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha = br.readLine();
             if (linha != null) {
@@ -103,16 +110,19 @@ public class ContaController {
         }
     }
 
+    // Método para visualizar a biblioteca de jogos da conta
     public static void verBiblioteca(Conta conta) {
         String arquivo = "biblioteca_" + conta.getId() + ".txt";
         File file = new File(arquivo);
         if (!file.exists()) {
+            // Cria um novo arquivo de biblioteca se não existir
             try {
                 file.createNewFile();
             } catch (IOException e) {
                 System.out.println("Erro ao criar arquivo de biblioteca: " + e.getMessage());
             }
         }
+        // Lê e exibe os jogos na biblioteca da conta
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             boolean temJogo = false;
@@ -130,6 +140,7 @@ public class ContaController {
         }
     }
 
+    // Método para comprar um jogo e adicioná-lo à biblioteca da conta
     public static void comprarJogo(Conta conta) {
         String arquivo = "jogos.txt";
         @SuppressWarnings("resource")
@@ -137,6 +148,7 @@ public class ContaController {
 
         System.out.println("Lista de Jogos Disponíveis:");
 
+        // Lê a lista de jogos disponíveis a partir do arquivo
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             String nome = null;
@@ -165,9 +177,11 @@ public class ContaController {
             System.out.println("Erro ao ler o arquivo de jogos: " + e.getMessage());
         }
 
+        // Solicita ao usuário o nome do jogo que deseja comprar
         System.out.print("Informe o nome do jogo que deseja comprar: ");
         String busca = scanner.nextLine().trim();
 
+        // Lê os detalhes do jogo a partir do arquivo
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             boolean encontrado = false;
@@ -192,6 +206,7 @@ public class ContaController {
                 }
             }
 
+            // Se o jogo for encontrado, realiza a compra
             if (encontrado) {
                 System.out.print("Deseja comprar o jogo '" + busca + "'? Digite [s] para sim ou [n] para não: ");
                 String resposta = scanner.nextLine().trim();
