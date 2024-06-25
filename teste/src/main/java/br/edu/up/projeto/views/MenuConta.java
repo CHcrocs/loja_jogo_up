@@ -14,6 +14,7 @@ public class MenuConta {
         int resposta = -1;
 
         do {
+            System.out.println(" ");
             System.out.println("[1] - ver saldo");
             System.out.println("[2] - adicionar saldo");
             System.out.println("[3] - ver biblioteca de jogos");
@@ -21,10 +22,13 @@ public class MenuConta {
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
             scanner.nextLine();
+            System.out.println(" ");
 
             switch (resposta) {
                 case 1:
+                    System.out.println(" ");
                     System.out.println("Saldo atual: " + conta.getSaldo());
+                    System.out.println(" ");
                     break;
                 case 2:
                     ContaController.adicionarSaldo(conta);

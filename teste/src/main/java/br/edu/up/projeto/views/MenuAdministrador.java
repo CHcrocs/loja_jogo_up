@@ -2,43 +2,41 @@ package br.edu.up.projeto.views;
 
 import java.util.Scanner;
 
+import br.edu.up.projeto.models.Administrador;
 import br.edu.up.projeto.controller.FuncionarioController;
 
-public class MenuFuncionario {
-    
-    // Pede senha para o usuário
-    private static final String senha_usuario = "123";
+public class MenuAdministrador {
 
-    public static boolean verifica_senha(Scanner scanner)
-    {
-        System.out.println("Digite a senha de acesso: ");
+    private static final String senhaUsuario = "123";
+
+    public static boolean verificaSenha(Scanner scanner) {
+        System.out.print("Digite a senha de acesso: ");
         String senha = scanner.nextLine();
-        return senha_usuario.equals(senha);
+        return senhaUsuario.equals(senha);
     }
 
-    public static void menuFuncionario(Scanner scanner, String[] args) {
-        int resposta;
+    public static void menuAdministrador(Administrador administrador, Scanner scanner, String[] args) {
+        int resposta = -1;
 
         do {
+            System.out.println(" ");
             System.out.println("[1] - Adicionar Jogo");
-            System.out.println("[2] - Remover jogo");
-            System.out.println("[3] - Alterar informações de jogos");
+            System.out.println("[2] - Remover Jogo");
+            System.out.println("[3] - Alterar Informações de Jogos");
             System.out.println("[0] - Sair");
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
             scanner.nextLine();
+            System.out.println(" ");
 
             switch (resposta) {
                 case 1:
-                    // Chama método adicionarJogo
                     FuncionarioController.adicionarJogo(scanner);
                     break;
                 case 2:
-                    // Chama método removerJogo
                     FuncionarioController.removerJogo(scanner);
                     break;
                 case 3:
-                    // Chama método ou classe para gerenciar contas
                     FuncionarioController.alterarInfo(scanner);
                     break;
                 case 0:

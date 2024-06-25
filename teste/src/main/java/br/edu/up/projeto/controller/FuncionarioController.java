@@ -69,9 +69,41 @@ public class FuncionarioController {
             e.printStackTrace();
         }
 
+        System.out.println("Lista de Jogos Disponíveis:");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            String nome = null;
+            String preco = null;
+
+            while ((linha = br.readLine()) != null) {
+                if (linha.startsWith("Nome: ")) {
+                    nome = linha; // Captura a linha do nome
+                } else if (linha.startsWith("Preco: ")) {
+                    preco = linha; // Captura a linha do preço
+                }
+
+                // Quando nome e preço foram capturados, exibe-os
+                if (nome != null && preco != null) {
+                    String precoValor = preco.split(": ")[1]; // Captura o valor do preço
+                    if (precoValor.equals("0")) {
+                        System.out.println(nome + " | " + preco + " (Grátis)");
+                    } else {
+                        System.out.println(nome + " | " + preco);
+                    }
+                    nome = null; // Reseta o nome para capturar o próximo jogo
+                    preco = null; // Reseta o preço para capturar o próximo jogo
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo de jogos: " + e.getMessage());
+        }
+
         // Reconhe informações do jogo
+        System.out.println(" ");
         System.out.println("Digite o nome do jogo que deseja remover: ");
         String busca = scanner.nextLine();
+        System.out.println(" ");
 
         // Remover o jogo da lista
         boolean jogoRemovido = false;
@@ -97,7 +129,9 @@ public class FuncionarioController {
         }
 
         if (jogoRemovido) {
+            System.out.println(" ");
             System.out.println("Jogo removido com sucesso!");
+            System.out.println(" ");
         } else {
             System.out.println("Jogo não encontrado.");
         }
@@ -107,16 +141,33 @@ public class FuncionarioController {
     public static void alterarInfo(Scanner scanner) {
         String arquivo = "jogos.txt";
         System.out.println("Lista de Jogos Disponíveis:");
+
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
+            String nome = null;
+            String preco = null;
+
             while ((linha = br.readLine()) != null) {
                 if (linha.startsWith("Nome: ")) {
-                    System.out.println(linha);
+                    nome = linha; // Captura a linha do nome
+                } else if (linha.startsWith("Preco: ")) {
+                    preco = linha; // Captura a linha do preço
+                }
+
+                // Quando nome e preço foram capturados, exibe-os
+                if (nome != null && preco != null) {
+                    String precoValor = preco.split(": ")[1]; // Captura o valor do preço
+                    if (precoValor.equals("0")) {
+                        System.out.println(nome + " | " + preco + " (Grátis)");
+                    } else {
+                        System.out.println(nome + " | " + preco);
+                    }
+                    nome = null; // Reseta o nome para capturar o próximo jogo
+                    preco = null; // Reseta o preço para capturar o próximo jogo
                 }
             }
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo de jogos: " + e.getMessage());
-            return;
         }
         // Solicitar o nome do jogo que terá o preço alterado
         System.out.print("\nDigite o nome do jogo que deseja alterar o preço: ");

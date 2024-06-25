@@ -19,6 +19,7 @@ public class ContaController {
         int resposta = -1;
 
         do {
+            System.out.println(" ");
             System.out.println("Escolha o valor que deseja adicionar: ");
             System.out.println("[1] - 10R$ ");
             System.out.println("[2] - 20R$ ");
@@ -27,12 +28,14 @@ public class ContaController {
             System.out.println("[0] - Voltar");
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
-            scanner.nextLine();
+            System.out.println(" ");
 
             switch (resposta) {
                 case 1:
                     conta.setSaldo(conta.getSaldo() + 10.0);
-                    System.out.println("Adicionando 10R$...");
+                    System.out.println(" ");
+                    System.out.println("10R$ adicionados com sucesso!");
+                    System.out.println(" ");
                     salvarSaldo(conta);
                     break;
                 case 2:
@@ -112,8 +115,15 @@ public class ContaController {
         }
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
+            boolean temJogo = false;
             while ((linha = br.readLine()) != null) {
                 System.out.println(linha);
+                temJogo = true;
+            }
+            if (!temJogo) {
+                System.out.println("");
+                System.out.println("-----A biblioteca está vazia-----");
+                System.out.println("");
             }
         } catch (IOException e) {
             System.out.println("Erro ao ler biblioteca de jogos: " + e.getMessage());
@@ -124,6 +134,36 @@ public class ContaController {
         String arquivo = "jogos.txt";
         @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Lista de Jogos Disponíveis:");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            String nome = null;
+            String preco = null;
+
+            while ((linha = br.readLine()) != null) {
+                if (linha.startsWith("Nome: ")) {
+                    nome = linha; // Captura a linha do nome
+                } else if (linha.startsWith("Preco: ")) {
+                    preco = linha; // Captura a linha do preço
+                }
+
+                // Quando nome e preço foram capturados, exibe-os
+                if (nome != null && preco != null) {
+                    String precoValor = preco.split(": ")[1]; // Captura o valor do preço
+                    if (precoValor.equals("0")) {
+                        System.out.println(nome + " | " + preco + " (Grátis)");
+                    } else {
+                        System.out.println(nome + " | " + preco);
+                    }
+                    nome = null; // Reseta o nome para capturar o próximo jogo
+                    preco = null; // Reseta o preço para capturar o próximo jogo
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo de jogos: " + e.getMessage());
+        }
 
         System.out.print("Informe o nome do jogo que deseja comprar: ");
         String busca = scanner.nextLine().trim();
