@@ -14,6 +14,7 @@ public class JogoController {
 
         System.out.print("Informe o nome do jogo que deseja encontrar: ");
         String busca = scanner.nextLine().trim();
+        System.out.println(" ");
 
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
@@ -40,7 +41,6 @@ public class JogoController {
                     if (encontrado) {
                         break;
                     }
-                    System.out.println(" ");
                 }
             }
             if (!encontrado) {

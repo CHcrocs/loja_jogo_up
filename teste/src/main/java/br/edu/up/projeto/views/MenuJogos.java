@@ -22,6 +22,7 @@ public class MenuJogos {
         int resposta = -1;
 
         do {
+            System.out.println(" ");
             System.out.println("[1] - listar jogos");
             System.out.println("[2] - procurar jogo");
             System.out.println("[3] - comprar jogo");
@@ -29,6 +30,7 @@ public class MenuJogos {
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
             scanner.nextLine();
+            System.out.println(" ");
 
             switch (resposta) {
                 case 1:

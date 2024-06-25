@@ -1,27 +1,12 @@
-Nome: gta
-G�nero: a��o
-Classifica��o: 18
-Preco: 10.0
-Nome: COD
-Gênero: FPD
-Classificação: 16
-;
-Nome: Minecraft
-Gênero: Sandbox
-Classificação: Livre
-;
-Nome: Teste
-Gênero: Sandbox
-Classificação: Livre
-;
-Nome: lol
-G�nero: sla
-Classifica��o: 12
-Online: true
-Pre�o: 0.0
-; 
+
 Nome: nba
 Genero: esporte
 Classificacao: livre
 Preco: 100.0
+
+Nome: csgo
+Genero: fps
+Classificacao: 18
+Preco: 80.0
+
 

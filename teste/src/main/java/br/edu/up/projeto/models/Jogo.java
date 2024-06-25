@@ -1,6 +1,6 @@
 package br.edu.up.projeto.models;
 
-abstract public class Jogo {
+ public class Jogo {
 
     private String nome;
     private String genero;
