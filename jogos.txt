@@ -2,7 +2,7 @@
 Nome: nba
 Genero: esporte
 Classificacao: livre
-Preco: 100.0
+Preco: 250.0
 
 Nome: csgo
 Genero: fps

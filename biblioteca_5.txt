@@ -1,0 +1,6 @@
+Nome: csgo
+Genero: fps
+Classificacao: 18
+Preco: 80.0
+
+
