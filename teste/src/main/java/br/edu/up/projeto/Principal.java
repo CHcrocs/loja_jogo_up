@@ -90,8 +90,8 @@ public class Principal {
         String nome = scanner.nextLine();
 
         // Solicita a senha do usuário
-        System.out.print("Informe a senha do usuário: ");
-        String senha = scanner.nextLine();
+
+        String senha = "123";
 
         // Cria um Cliente ou Administrador com base no tipo de usuário
         if (tipoUsuario.equals("Cliente")) {
