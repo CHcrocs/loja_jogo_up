@@ -1,5 +1,6 @@
 package br.edu.up.projeto.views;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import br.edu.up.projeto.Principal;
@@ -13,7 +14,7 @@ public class MenuCliente {
         
         int resposta = -1; // Variável para armazenar a opção escolhida pelo usuário
         do {
-            try {
+            
                 System.out.println(" ");
                 System.out.println("[1] - ver menu de jogos"); // Opção para visualizar o menu de jogos
                 System.out.println("[2] - ver Conta"); // Opção para visualizar a conta do cliente
@@ -37,10 +38,8 @@ public class MenuCliente {
                     default:
                         System.out.println("Opção inválida"); // Mensagem de opção inválida
                 }
-
-            } catch (Exception e) {
-                System.out.println("Erro: " + e.getMessage()); // Captura e exibe qualquer exceção que ocorra
-            }
+                
+            
         } while (resposta != 0); // Continua exibindo o menu até que a opção de sair seja escolhida
         Principal.main(args); // Após sair do menu, chama o método principal da classe Principal
     }
